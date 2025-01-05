@@ -9,8 +9,8 @@ export default {
         isans: ['InfinitySans-RegularA1', 'sans-serif'],
       },
       colors: {
-        titleBlack: '#00000',
-        pointColor: '19F078',
+        titleBlack: '#000000',
+        pointColor: '#19F078',
         borderGrey: '#DAD3CB',
         textGrey1: '#9F9A94',
         textGrey2: '#7B7773',
