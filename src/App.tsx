@@ -1,11 +1,13 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import Landing from '@/pages/landing';
 import '@/styles/styles.css';
 
+const routes = [{ path: '/', element: <Landing /> }];
+
+const router = createBrowserRouter(routes);
 function App() {
-  return (
-    <>
-      <h1 className="text-3xl font-bold underline">WEMADE 프로젝트</h1>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
