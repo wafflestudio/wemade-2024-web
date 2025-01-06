@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Layout } from '@/components/Layout';
 import LoginButton from '@/components/LoginButton';
@@ -25,12 +26,12 @@ const Landing = () => {
         </div>
         <div className="text-[15px] text-textGrey2">
           처음이시라면?
-          <a
-            href="/"
+          <Link
+            to="/signup"
             className="ml-2.5 font-psemibold text-textGreen underline"
           >
             회원가입하기
-          </a>
+          </Link>
         </div>
       </div>
     </Layout>
