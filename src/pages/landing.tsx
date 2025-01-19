@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Layout } from '@/components/Layout';
 import LoginButton from '@/components/LoginButton';
 import { BLACK_LOGO } from '@/constants/images';
-const Landing = () => {
+import { API_DOMAIN } from '@/utils/api';
+export const Landing = () => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleLogin = async () => {
+    setIsClicked(!isClicked);
+    window.location.href = `${API_DOMAIN}/login`;
+  };
+
   return (
     <Layout>
       <div className="flex h-full flex-col items-center justify-center">
@@ -18,7 +26,11 @@ const Landing = () => {
             안녕하세요 위메이드입니다.
           </div>
         </div>
-        <LoginButton text="Google 계정으로 로그인하기" />
+        <LoginButton
+          text="Google 계정으로 로그인하기"
+          onClick={handleLogin}
+          isClicked={isClicked}
+        />
         <div className="my-[38px] flex w-[320px] items-center">
           <hr className="flex-grow border-t border-textGrey1" />
           <span className="mx-3.5 text-sm text-textGrey1">OR</span>
@@ -37,5 +49,3 @@ const Landing = () => {
     </Layout>
   );
 };
-
-export default Landing;

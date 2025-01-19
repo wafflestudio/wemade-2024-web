@@ -5,7 +5,7 @@ import BigButton from '@/components/BigButton';
 import { Layout } from '@/components/Layout';
 import { GRAY_SMALL_LOGO, BACK_BUTTON, SIGNUP_LOGO } from '@/constants/images';
 
-const Signup = () => {
+export const Signup = () => {
   return (
     <Layout>
       <div className="mx-auto flex h-full w-full max-w-[330px] flex-col justify-center gap-8">
@@ -79,5 +79,3 @@ const Signup = () => {
     </Layout>
   );
 };
-
-export default Signup;
