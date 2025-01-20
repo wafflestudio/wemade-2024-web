@@ -14,7 +14,7 @@ type AuthResponse = {
 export const Home = () => {
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
-  console.log(code);
+  console.log('code', code);
   const { data, isLoading } = useGetRequest<AuthResponse>(
     ['google-code'],
     `/api/v1/auth/google/callback?code=${code}`,
@@ -22,11 +22,12 @@ export const Home = () => {
       refetchOnWindowFocus: true,
     }
   );
-  console.log(data);
+  console.log('data', data);
   if (isLoading) return <div>Loading...</div>;
   if (data) {
     localStorage.setItem('accessToken', data.access_token);
     localStorage.setItem('refreshToken', data.refresh_token);
+    window.location.href = '/home';
   } else if (!data || !code) {
     window.location.href = '/';
   }

@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import { Layout } from '@/components/Layout';
 import LoginButton from '@/components/LoginButton';
 import { BLACK_LOGO } from '@/constants/images';
-import { API_DOMAIN } from '@/utils/api';
 export const Landing = () => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleLogin = async () => {
     setIsClicked(!isClicked);
-    window.location.href = `${API_DOMAIN}/login`;
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://localhost:5173/home&prompt=consent&response_type=code&client_id=293281303236-co7h6gv88aif7e45kff1cjthivsh5c5h.apps.googleusercontent.com&scope=openid%20email%20profile&access_type=offline`;
   };
 
   return (
