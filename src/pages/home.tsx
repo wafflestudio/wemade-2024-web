@@ -28,8 +28,9 @@ export const Home = () => {
     localStorage.setItem('accessToken', data.access_token);
     localStorage.setItem('refreshToken', data.refresh_token);
     window.location.href = '/home';
-  } else if (!data || !code) {
-    window.location.href = '/';
   }
+  // else if (!data || !code) {
+  //   window.location.href = '/';
+  // }
   return <div>Home</div>;
 };

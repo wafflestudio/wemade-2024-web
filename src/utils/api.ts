@@ -7,7 +7,7 @@ import {
 
 export const API_DOMAIN =
   'https://wemade-2024-server-h0csbcbdesdbe0ep.eastasia-01.azurewebsites.net';
-
+// export const API_DOMAIN = 'http://192.168.136.200:8000';
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 type FetchOptions = {

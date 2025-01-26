@@ -9,7 +9,7 @@ export const Landing = () => {
 
   const handleLogin = async () => {
     setIsClicked(!isClicked);
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://localhost:5173/home&prompt=consent&response_type=code&client_id=293281303236-co7h6gv88aif7e45kff1cjthivsh5c5h.apps.googleusercontent.com&scope=openid%20email%20profile&access_type=offline`;
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${import.meta.env.VITE_DOMAIN}/home&prompt=consent&response_type=code&client_id=${import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}&scope=openid%20email%20profile&access_type=offline`;
   };
 
   return (
