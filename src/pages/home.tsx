@@ -1,7 +1,6 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
-import { useGetRequest } from '@/utils/api';
-
+import { useGetRequestWithoutToken, useToken } from '@/utils/api';
 type AuthResponse = {
   access_token: string;
   refresh_token: string;
@@ -12,25 +11,24 @@ type AuthResponse = {
 };
 
 export const Home = () => {
+  const { setAccessToken } = useToken();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const code = searchParams.get('code');
-  console.log('code', code);
-  const { data, isLoading } = useGetRequest<AuthResponse>(
+  const { data, isLoading } = useGetRequestWithoutToken<AuthResponse>(
     ['google-code'],
     `/api/v1/auth/google/callback?code=${code}`,
     {
       refetchOnWindowFocus: true,
     }
   );
-  console.log('data', data);
   if (isLoading) return <div>Loading...</div>;
   if (data) {
+    setAccessToken(data.access_token);
     localStorage.setItem('accessToken', data.access_token);
     localStorage.setItem('refreshToken', data.refresh_token);
-    window.location.href = '/home';
+    navigate('/signup');
   }
-  // else if (!data || !code) {
-  //   window.location.href = '/';
-  // }
+
   return <div>Home</div>;
 };
