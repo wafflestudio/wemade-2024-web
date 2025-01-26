@@ -3,11 +3,10 @@ import {
   useMutation,
   UseQueryOptions,
   UseMutationOptions,
+  useQueryClient,
 } from '@tanstack/react-query';
-
-export const API_DOMAIN =
-  'https://wemade-2024-server-h0csbcbdesdbe0ep.eastasia-01.azurewebsites.net';
-// export const API_DOMAIN = 'http://192.168.136.200:8000';
+import { useNavigate } from 'react-router-dom';
+export const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
 type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 type FetchOptions = {
@@ -22,13 +21,41 @@ export const fetchData = async <T>({
   headers,
   body,
 }: FetchOptions) => {
+  const { accessToken, clearTokens } = useToken();
+  const navigate = useNavigate();
   const url = `${API_DOMAIN}${endpoint}`;
-  console.log(url);
   const response = await fetch(url, {
     method,
     headers: {
       'Content-Type': 'application/json',
-      ...headers,
+      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  if (!response.ok) {
+    if (response.status === 401) {
+      clearTokens();
+      navigate('/auth/login', { replace: true });
+    }
+    const error = await response.json();
+    throw new Error(error.message || 'Something went wrong!');
+  }
+
+  return response.json();
+};
+
+const fetchDataWithoutToken = async <T>({
+  endpoint,
+  method,
+  headers,
+  body,
+}: FetchOptions) => {
+  const url = `${API_DOMAIN}${endpoint}`;
+  const response = await fetch(url, {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
     },
     body: body ? JSON.stringify(body) : undefined,
   });
@@ -40,7 +67,6 @@ export const fetchData = async <T>({
 
   return response.json();
 };
-
 // GET request
 export const useGetRequest = <T>(
   queryKey: string[],
@@ -50,6 +76,18 @@ export const useGetRequest = <T>(
   return useQuery<T>({
     queryKey,
     queryFn: () => fetchData<T>({ endpoint, method: 'GET' }),
+    ...options,
+  });
+};
+
+export const useGetRequestWithoutToken = <T>(
+  queryKey: string[],
+  endpoint: string,
+  options?: Omit<UseQueryOptions<T>, 'queryKey'>
+) => {
+  return useQuery<T>({
+    queryKey,
+    queryFn: () => fetchDataWithoutToken<T>({ endpoint, method: 'GET' }),
     ...options,
   });
 };
@@ -104,4 +142,26 @@ export const usePatchRequest = <T, Variables>(
     },
     ...options,
   });
+};
+
+export const useToken = () => {
+  const queryClient = useQueryClient();
+
+  const accessToken =
+    queryClient.getQueryData<string>(['accessToken']) ||
+    localStorage.getItem('accessToken');
+
+  const setAccessToken = (token: string) => {
+    queryClient.setQueryData(['accessToken'], token);
+    localStorage.setItem('accessToken', token);
+  };
+
+  const clearTokens = () => {
+    queryClient.removeQueries({ queryKey: ['accessToken'] });
+    queryClient.removeQueries({ queryKey: ['refreshToken'] });
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+  };
+
+  return { accessToken, setAccessToken, clearTokens };
 };
