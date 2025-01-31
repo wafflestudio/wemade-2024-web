@@ -51,6 +51,14 @@ export default tseslint.config(
       ],
       'import/no-duplicates': 'error',
       'import/no-named-as-default': 'off',
+      'padding-line-between-statements': [
+        'error',
+        {
+          blankLine: 'always',
+          prev: 'import',
+          next: ['class', 'function', 'const', 'let', 'var', 'export'],
+        },
+      ],
     },
   }
 );
