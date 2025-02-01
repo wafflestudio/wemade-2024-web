@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom';
 
 import BigButton from '@/components/BigButton';
 import { Layout } from '@/components/Layout';
-import { GRAY_SMALL_LOGO, BACK_BUTTON, SIGNUP_LOGO } from '@/constants/images';
+import {
+  GRAY_SMALL_LOGO,
+  BACK_BUTTON,
+  SIGNUP_LOGO,
+} from '@/constants/images.ts';
 
-export const Signup = () => {
+export const SignUp = () => {
   return (
     <Layout>
       <div className="mx-auto flex h-full w-full max-w-[330px] flex-col justify-center gap-8">
