@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Layout } from '@/components/Layout';
 import LoginButton from '@/components/LoginButton';
 import { BLACK_LOGO } from '@/constants/images.ts';
+
 export const Landing = () => {
   const [isClicked, setIsClicked] = useState(false);
 
