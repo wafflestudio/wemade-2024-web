@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { ProtectedRoute } from '@/components/Auth';
-import { Home } from '@/pages/Home';
-import { Landing } from '@/pages/Landing';
-import { SignUp } from '@/pages/SignUp';
+import Home from '@/pages/Home.tsx';
+import Landing from '@/pages/Landing.tsx';
+import SignUp from '@/pages/SignUp.tsx';
 
 export const router = createBrowserRouter([
   {

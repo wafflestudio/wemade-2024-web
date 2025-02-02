@@ -9,7 +9,7 @@ import {
   SIGNUP_LOGO,
 } from '@/constants/images.ts';
 
-export const SignUp = () => {
+const SignUp = () => {
   return (
     <Layout>
       <div className="mx-auto flex h-full w-full max-w-[330px] flex-col justify-center gap-8">
@@ -83,3 +83,5 @@ export const SignUp = () => {
     </Layout>
   );
 };
+
+export default SignUp;

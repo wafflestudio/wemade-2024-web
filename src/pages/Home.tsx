@@ -1,6 +1,7 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import { useGetRequestWithoutToken, useToken } from '@/utils/api';
+
 type AuthResponse = {
   access_token: string;
   refresh_token: string;
@@ -10,7 +11,7 @@ type AuthResponse = {
   };
 };
 
-export const Home = () => {
+const Home = () => {
   const { setAccessToken } = useToken();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -32,3 +33,5 @@ export const Home = () => {
 
   return <div>Home</div>;
 };
+
+export default Home;

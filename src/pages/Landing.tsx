@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import SearchBar from '@/components/common/SearchBar.tsx';
 import { Layout } from '@/components/Layout';
 import LoginButton from '@/components/LoginButton';
 import { BLACK_LOGO } from '@/constants/images.ts';
 
-export const Landing = () => {
+const Landing = () => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleLogin = async () => {
@@ -49,3 +50,5 @@ export const Landing = () => {
     </Layout>
   );
 };
+
+export default Landing;
