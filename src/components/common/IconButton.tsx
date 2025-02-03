@@ -10,7 +10,7 @@ const IconButton = ({
     <button
       {...props}
       disabled={disabled}
-      className={`flex h-[36px] w-[36px] items-center justify-center rounded-[6px] bg-white p-[8px] transition-colors hover:bg-[#EBE6E0] disabled:cursor-default disabled:bg-backgroundWhite ${
+      className={`flex h-[36px] w-[36px] items-center justify-center rounded-[6px] bg-white p-[8px] transition-colors hover:bg-[#EBE6E0] disabled:cursor-default disabled:bg-white ${
         disabled ? 'text-borderGray' : 'text-textGray2'
       } ${className}`}
     >

@@ -7,7 +7,7 @@ const SearchBar = ({
   return (
     <input
       {...props}
-      className={`h-[38px] w-full rounded-[20px] border border-textGray1 bg-backgroundGray px-4 font-pmedium text-titleBlack placeholder-textGray1 outline-none ${className}`}
+      className={`h-[38px] w-full rounded-[20px] border border-textGray1 bg-backgroundGray px-4 text-black placeholder-textGray1 outline-none ${className}`}
     />
   );
 };
