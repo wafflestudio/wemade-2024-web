@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom';
 
 import BigButton from '@/components/BigButton';
 import { Layout } from '@/components/Layout';
-import { GRAY_SMALL_LOGO, BACK_BUTTON, SIGNUP_LOGO } from '@/constants/images';
+import {
+  GRAY_SMALL_LOGO,
+  BACK_BUTTON,
+  SIGNUP_LOGO,
+} from '@/constants/images.ts';
 
-export const Signup = () => {
+const SignUp = () => {
   return (
     <Layout>
       <div className="mx-auto flex h-full w-full max-w-[330px] flex-col justify-center gap-8">
@@ -34,41 +38,41 @@ export const Signup = () => {
 
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-textGrey2">이메일</label>
+            <label className="text-sm font-medium text-textGray2">이메일</label>
             <div className="flex items-center gap-3">
-              <div className="flex w-full items-center rounded-md border border-borderGrey bg-backgroundWhite px-3 py-2">
+              <div className="flex w-full items-center rounded-md border border-borderGray bg-backgroundWhite px-3 py-2">
                 <input
                   type="email"
                   placeholder="이메일을 입력하세요."
-                  className="flex-grow text-[15px] font-medium text-textGrey1 focus:outline-none"
+                  className="flex-grow text-[15px] font-medium text-textGray1 focus:outline-none"
                 />
               </div>
-              <button className="whitespace-nowrap rounded-md border border-borderGrey bg-backgroundGrey px-4 py-2 text-[15px] font-medium">
+              <button className="whitespace-nowrap rounded-md border border-borderGray bg-backgroundGray px-4 py-2 text-[15px] font-medium">
                 인증하기
               </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-textGrey2">
+            <label className="text-sm font-medium text-textGray2">
               전화번호
             </label>
-            <div className="flex w-full items-center rounded-md border border-borderGrey bg-backgroundWhite px-3 py-2">
+            <div className="flex w-full items-center rounded-md border border-borderGray bg-backgroundWhite px-3 py-2">
               <input
                 type="tel"
                 placeholder="전화번호를 입력하세요."
-                className="flex-grow text-[15px] font-medium text-textGrey1 focus:outline-none"
+                className="flex-grow text-[15px] font-medium text-textGray1 focus:outline-none"
               />
             </div>
           </div>
 
           <div className="flex flex-col gap-1.5 pb-2">
-            <label className="text-sm font-medium text-textGrey2">직책</label>
-            <div className="flex w-full items-center rounded-md border border-borderGrey bg-backgroundWhite px-3 py-2">
+            <label className="text-sm font-medium text-textGray2">직책</label>
+            <div className="flex w-full items-center rounded-md border border-borderGray bg-backgroundWhite px-3 py-2">
               <input
                 type="text"
                 placeholder="직책을 입력하세요."
-                className="flex-grow text-[15px] font-medium text-textGrey1 focus:outline-none"
+                className="flex-grow text-[15px] font-medium text-textGray1 focus:outline-none"
               />
             </div>
           </div>
@@ -79,3 +83,5 @@ export const Signup = () => {
     </Layout>
   );
 };
+
+export default SignUp;

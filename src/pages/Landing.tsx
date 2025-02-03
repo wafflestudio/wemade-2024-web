@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import SearchBar from '@/components/common/SearchBar.tsx';
 import { Layout } from '@/components/Layout';
 import LoginButton from '@/components/LoginButton';
-import { BLACK_LOGO } from '@/constants/images';
-export const Landing = () => {
+import { BLACK_LOGO } from '@/constants/images.ts';
+
+const Landing = () => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleLogin = async () => {
@@ -31,11 +33,11 @@ export const Landing = () => {
           isClicked={isClicked}
         />
         <div className="my-[38px] flex w-[320px] items-center">
-          <hr className="flex-grow border-t border-textGrey1" />
-          <span className="mx-3.5 text-sm text-textGrey1">OR</span>
-          <hr className="flex-grow border-t border-textGrey1" />
+          <hr className="flex-grow border-t border-textGray1" />
+          <span className="mx-3.5 text-sm text-textGray1">OR</span>
+          <hr className="flex-grow border-t border-textGray1" />
         </div>
-        <div className="text-[15px] text-textGrey2">
+        <div className="text-[15px] text-textGray2">
           처음이시라면?
           <Link
             to="/signup"
@@ -48,3 +50,5 @@ export const Landing = () => {
     </Layout>
   );
 };
+
+export default Landing;
