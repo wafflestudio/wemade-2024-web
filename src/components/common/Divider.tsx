@@ -1,4 +1,5 @@
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 const Divider = ({
   className = '',
@@ -6,7 +7,7 @@ const Divider = ({
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
-      className={`h-[1px] w-full bg-borderGray ${className}`}
+      className={twMerge('h-[1px] w-full bg-borderGray', className)}
       {...props}
     />
   );

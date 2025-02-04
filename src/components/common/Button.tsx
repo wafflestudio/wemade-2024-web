@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type ButtonProps = {
   label: string;
@@ -38,7 +38,7 @@ const Button = ({
 
   return (
     <button
-      className={clsx(
+      className={twMerge(
         baseStyles,
         sizeStyles[size],
         disabled ? disabledStyles : buttonTheme[theme],
