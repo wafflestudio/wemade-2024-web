@@ -11,11 +11,12 @@ type AuthResponse = {
   };
 };
 
-const Home = () => {
+const OAuthCallback = () => {
   const { setAccessToken } = useToken();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const code = searchParams.get('code');
+
   const { data, isLoading } = useGetRequestWithoutToken<AuthResponse>(
     ['google-code'],
     `/api/v1/auth/google/callback?code=${code}`,
@@ -23,7 +24,9 @@ const Home = () => {
       refetchOnWindowFocus: true,
     }
   );
+
   if (isLoading) return <div>Loading...</div>;
+
   if (data) {
     setAccessToken(data.access_token);
     localStorage.setItem('accessToken', data.access_token);
@@ -31,7 +34,7 @@ const Home = () => {
     navigate('/signup');
   }
 
-  return <div>Home</div>;
+  return null;
 };
 
-export default Home;
+export default OAuthCallback;

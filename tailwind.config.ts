@@ -4,18 +4,14 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        pmedium: ['Pretendard Medium', 'sans-serif'],
-        psemibold: ['Pretendard SemiBold', 'sans-serif'],
-        isans: ['InfinitySans-RegularA1', 'sans-serif'],
+        sans: ['Pretendard', 'sans-serif'],
       },
       colors: {
-        titleBlack: '#000000',
         pointColor: '#19F078',
         borderGray: '#DAD3CB',
         textGray1: '#9F9A94',
         textGray2: '#7B7773',
         textGreen: '#33DB7D',
-        backgroundWhite: '#FFF',
         backgroundGray: '#F6F4F1',
         backgroundGreen: '#35C274',
         errorRed: '#EC3737',

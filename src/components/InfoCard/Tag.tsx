@@ -10,7 +10,7 @@ const Tag = ({ label, isPosition = false, linkTo }: TagProps) => {
   const navigate = useNavigate();
 
   const baseStyles =
-    'h-[26px] inline-block cursor-pointer rounded-md px-3 py-[5px] font-pmedium leading-[16.71px] transition-colors';
+    'h-[26px] inline-block cursor-pointer rounded-md px-3 py-[5px] leading-[16.71px] transition-colors';
 
   const colorStyles = isPosition
     ? 'bg-black text-white'
