@@ -1,9 +1,14 @@
 import { Outlet } from 'react-router-dom';
 
+import SideBar from '@/Layout/SideBar.tsx';
+
 const Layout = () => {
   return (
-    <div className="relative mx-auto flex h-screen w-full max-w-[560px] flex-col items-center overflow-hidden">
-      <Outlet />
+    <div className="flex">
+      <SideBar />
+      <div className="ml-[70px] flex w-full justify-center px-[56px] py-[48px]">
+        <Outlet />
+      </div>
     </div>
   );
 };

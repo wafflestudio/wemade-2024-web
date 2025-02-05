@@ -1,8 +1,14 @@
 import { useNavigate } from 'react-router-dom';
+import { twMerge } from 'tailwind-merge';
 
 import { Icons } from '@/constants/icons.tsx';
 
-const BackButton = ({ linkTo = '-1' }: { linkTo?: string }) => {
+interface BackButtonProps {
+  linkTo?: string;
+  className?: string;
+}
+
+const BackButton = ({ linkTo = '-1', className = '' }: BackButtonProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -15,7 +21,10 @@ const BackButton = ({ linkTo = '-1' }: { linkTo?: string }) => {
 
   return (
     <div
-      className="flex h-[60px] w-[60px] cursor-pointer items-center justify-center rounded-full border border-borderGray bg-white transition-colors hover:bg-backgroundGray"
+      className={twMerge(
+        'flex h-[60px] w-[60px] cursor-pointer items-center justify-center rounded-full border border-borderGray bg-white transition-colors hover:bg-backgroundGray',
+        className
+      )}
       onClick={handleClick}
     >
       {Icons.Backward}
