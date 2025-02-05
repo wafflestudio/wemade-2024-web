@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import AuthLayout from '@/Layout/AuthLayout.tsx';
 import Layout from '@/Layout/Layout.tsx';
 import Home from '@/pages/Home.tsx';
-import InfoCard from '@/pages/InfoCard/InfoCard.tsx';
 import Landing from '@/pages/Landing.tsx';
 import OAuthCallback from '@/pages/OAuthCallback.tsx';
 import SignUp from '@/pages/SignUp.tsx';
@@ -18,10 +17,7 @@ export const router = createBrowserRouter([
     children: [
       {
         element: <ProtectedRoute redirectTo="/auth/login" />,
-        children: [
-          { index: true, element: <Home /> },
-          { path: 'infocard', element: <InfoCard /> },
-        ],
+        children: [{ index: true, element: <Home /> }],
       },
     ],
   },
