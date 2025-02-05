@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import Layout from '@/Layout/Layout.tsx';
-import InfoCard from '@/pages/InfoCard/InfoCard.tsx';
+// import InfoCard from '@/pages/InfoCard/InfoCard.tsx';
 import Landing from '@/pages/Landing.tsx';
 import OAuthCallback from '@/pages/OAuthCallback.tsx';
 import SignUp from '@/pages/SignUp.tsx';
@@ -13,12 +13,12 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: 'auth/login', element: <Landing /> },
-      { path: 'home', element: <OAuthCallback /> },
+      { path: 'auth/callback', element: <OAuthCallback /> },
       {
         element: <ProtectedRoute redirectTo="/auth/login" />,
         children: [
           { path: 'signup', element: <SignUp /> },
-          { path: 'infocard', element: <InfoCard /> },
+          // { path: 'infocard', element: <InfoCard /> },
         ],
       },
       { path: '*', element: <Landing /> },

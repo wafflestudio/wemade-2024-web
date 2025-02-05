@@ -5,7 +5,7 @@ import { BLACK_LOGO } from '@/constants/images.ts';
 
 const Landing = () => {
   const handleLogin = async () => {
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${import.meta.env.VITE_DOMAIN}/home&prompt=consent&response_type=code&client_id=${import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}&scope=openid%20email%20profile&access_type=offline`;
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${import.meta.env.VITE_DOMAIN}/auth/callback&prompt=consent&response_type=code&client_id=${import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}&scope=openid%20email%20profile&access_type=offline`;
   };
 
   return (
