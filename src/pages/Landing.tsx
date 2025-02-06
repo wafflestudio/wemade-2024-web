@@ -4,8 +4,8 @@ import Button from '@/components/common/Button.tsx';
 import { BLACK_LOGO } from '@/constants/images.ts';
 
 const Landing = () => {
-  const handleLogin = async () => {
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${import.meta.env.VITE_DOMAIN}/home&prompt=consent&response_type=code&client_id=${import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}&scope=openid%20email%20profile&access_type=offline`;
+  const handleLogin = () => {
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${import.meta.env.VITE_DOMAIN}/auth/callback&prompt=consent&response_type=code&client_id=${import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}&scope=openid%20email%20profile&access_type=offline`;
   };
 
   return (
@@ -33,7 +33,7 @@ const Landing = () => {
       <div className="text-[15px]">
         <span className="text-textGray2">처음이시라면?</span>
         <Link
-          to="/signup"
+          to="/auth/signup"
           className="ml-2.5 font-semibold text-textGreen underline"
         >
           회원가입하기
