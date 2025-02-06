@@ -27,10 +27,36 @@ const OAuthCallback = () => {
 
   if (isLoading) {
     return (
-      <div className="relative mx-auto flex h-screen w-full max-w-[560px] flex-col items-center justify-center overflow-hidden">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-dashed border-pointColor"></div>
+      <div className="flex h-full flex-col items-center justify-center">
+        <svg
+          className="h-12 w-12 animate-spin text-pointColor"
+          viewBox="0 0 50 50"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="25"
+            cy="25"
+            r="20"
+            stroke="currentColor"
+            strokeWidth="4"
+            strokeDasharray="100"
+            strokeLinecap="round"
+            opacity="0.3"
+          />
+          <circle
+            cx="25"
+            cy="25"
+            r="20"
+            stroke="currentColor"
+            strokeWidth="4"
+            strokeDasharray="100"
+            strokeDashoffset="75"
+            strokeLinecap="round"
+          />
+        </svg>
 
-        <p className="animate-pulse text-lg font-medium text-gray-700">
+        <p className="mt-4 animate-pulse text-lg font-medium text-gray-600">
           로그인 중...
         </p>
       </div>
