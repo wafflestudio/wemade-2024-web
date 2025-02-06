@@ -41,7 +41,7 @@ const OAuthCallback = () => {
     setAccessToken(data.access_token);
     localStorage.setItem('accessToken', data.access_token);
     localStorage.setItem('refreshToken', data.refresh_token);
-    navigate('/signup');
+    navigate('/auth/signup');
   }
 
   return null;

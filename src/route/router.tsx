@@ -1,33 +1,41 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import AuthLayout from '@/Layout/AuthLayout.tsx';
 import Layout from '@/Layout/Layout.tsx';
-// import InfoCard from '@/pages/InfoCard/InfoCard.tsx';
+import Home from '@/pages/Home.tsx';
 import Landing from '@/pages/Landing.tsx';
 import OAuthCallback from '@/pages/OAuthCallback.tsx';
 import SignUp from '@/pages/SignUp.tsx';
 import ProtectedRoute from '@/route/ProtectedRoute.tsx';
 
 export const router = createBrowserRouter([
+  // Layout을 사용하는 기본 구조
   {
     path: '/',
     element: <Layout />,
     children: [
-      { path: 'auth/login', element: <Landing /> },
-      { path: 'auth/callback', element: <OAuthCallback /> },
       {
         element: <ProtectedRoute redirectTo="/auth/login" />,
-        children: [
-          { path: 'signup', element: <SignUp /> },
-          // { path: 'infocard', element: <InfoCard /> },
-        ],
+        children: [{ index: true, element: <Home /> }],
       },
-      { path: '*', element: <Landing /> },
     ],
   },
+
+  // AuthLayout을 사용하는 인증 관련 경로
   {
-    path: '/',
-    element: <ProtectedRoute redirectTo="/auth/login" />,
-    children: [{ index: true, element: <Landing /> }],
+    path: '/auth',
+    element: <AuthLayout />,
+    children: [
+      { path: 'login', element: <Landing /> },
+      { path: 'callback', element: <OAuthCallback /> },
+      { path: 'signup', element: <SignUp /> },
+    ],
+  },
+
+  // 404 페이지 처리 (잘못된 경로 접근 시 `Landing`으로 이동)
+  {
+    path: '*',
+    element: <Landing />,
   },
 ]);
 
@@ -40,6 +48,7 @@ export const router = createBrowserRouter([
 //       { path: 'auth/login', element: <Landing /> },
 //       { path: 'signup', element: <SignUp /> },
 //       { path: 'infocard', element: <InfoCard /> },
+//       { path: 'test', element: <Test /> },
 //     ],
 //   },
 // ]);
