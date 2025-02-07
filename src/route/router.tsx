@@ -6,7 +6,6 @@ import Home from '@/pages/Home.tsx';
 import Landing from '@/pages/Landing.tsx';
 import OAuthCallback from '@/pages/OAuthCallback.tsx';
 import SignUp from '@/pages/SignUp.tsx';
-import Test from '@/pages/Test.tsx';
 import ProtectedRoute from '@/route/ProtectedRoute.tsx';
 
 export const router = createBrowserRouter([
