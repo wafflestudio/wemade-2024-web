@@ -1,6 +1,7 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
-import { useGetRequestWithoutToken, useToken } from '@/utils/api';
+import { useToken } from '@/hooks/useToken';
+import { useGetRequestWithoutToken } from '@/utils/api';
 
 type AuthResponse = {
   access_token: string;
