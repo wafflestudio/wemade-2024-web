@@ -8,11 +8,13 @@ export default {
       },
       colors: {
         pointColor: '#19F078',
+        lightGreen: '#D1FCE4',
         borderGray: '#DAD3CB',
         textGray1: '#9F9A94',
         textGray2: '#7B7773',
         textGreen: '#33DB7D',
         backgroundGray: '#F6F4F1',
+        backgroundUnselected: '#EBE6E0',
         backgroundGreen: '#35C274',
         errorRed: '#EC3737',
       },
