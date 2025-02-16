@@ -23,7 +23,7 @@ const groupRowVariants = cva(
         false: '',
       },
       level: {
-        1: 'pl-6', // w/o upper org
+        1: '', // w/o upper org
         2: 'pl-6', // with upper org
         3: 'pl-11',
         4: 'pl-16',
@@ -36,6 +36,10 @@ const groupRowVariants = cva(
         unselected: 'bg-backgroundUnselected',
         selected: 'text-backgroundGreen',
       },
+      unclassified: {
+        true: 'text-textGray2',
+        false: '',
+      },
     },
 
     defaultVariants: {
@@ -43,6 +47,8 @@ const groupRowVariants = cva(
       hasUpperOrg: false,
       level: 1,
       state: 'default',
+      isEdit: false,
+      unclassified: false,
     },
   }
 );
@@ -58,13 +64,21 @@ const GroupRow = ({
   level = 1,
   state = 'default',
   isEdit = false,
+  unclassified = false,
 }: GroupRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div
       className={cn(
-        groupRowVariants({ hasChildren, hasUpperOrg, level, state })
+        groupRowVariants({
+          hasChildren,
+          hasUpperOrg,
+          level,
+          state,
+          isEdit,
+          unclassified,
+        })
       )}
     >
       <div
