@@ -10,7 +10,8 @@ import MENU_FILE_EXPORT_ICON from '@/assets/icons/org/file_export.svg?react';
 import MENU_HISTORY_ICON from '@/assets/icons/org/history.svg?react';
 import LINE_ICON from '@/assets/icons/org/line.svg?react';
 import ORG_TITLE_ICON from '@/assets/icons/org/organizationPageTitle.svg?react';
-import TRIANGLE_BUTTON_ICON from '@/assets/icons/org/triangleButton.svg?react';
+import TRIANGLE_BUTTON_ICON_CLOSE from '@/assets/icons/org/triangleButtonClose.svg?react';
+import TRIANGLE_BUTTON_ICON_OPEN from '@/assets/icons/org/triangleButtonOpen.svg?react';
 import TREE_ICON from '@/assets/icons/tree-icon.svg?react';
 
 export const Icons = {
@@ -23,7 +24,8 @@ export const Icons = {
   List: <LIST_ICON />,
   Tree: <TREE_ICON />,
   OrgTitle: <ORG_TITLE_ICON />,
-  TriangleButton: <TRIANGLE_BUTTON_ICON />,
+  TriangleButtonOpen: <TRIANGLE_BUTTON_ICON_OPEN />,
+  TriangleButtonClose: <TRIANGLE_BUTTON_ICON_CLOSE />,
   MenuCardTravel: <MENU_CARD_TRAVEL_ICON />,
   MenuFileExport: <MENU_FILE_EXPORT_ICON />,
   MenuHistory: <MENU_HISTORY_ICON />,
