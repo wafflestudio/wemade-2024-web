@@ -95,7 +95,7 @@ const GroupRow = ({
             'rotate-180': isExpanded,
           })}
         >
-          {Icons.TriangleButton}
+          {isExpanded ? Icons.TriangleButtonOpen : Icons.TriangleButtonClose}
         </button>
       )}
       <span className="flex-1">{name}</span>
