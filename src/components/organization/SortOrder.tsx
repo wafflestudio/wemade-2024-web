@@ -27,7 +27,7 @@ const SortOrder = ({ onSelect, selectedValue, options }: SortOrderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="">
+    <div className="relative inline-block">
       {/* Sort Button */}
       <button
         className={cn(
@@ -41,7 +41,7 @@ const SortOrder = ({ onSelect, selectedValue, options }: SortOrderProps) => {
 
       {/* Dropdown List */}
       {isOpen && (
-        <div className="absolute mt-1 rounded-md border border-solid border-textGreen bg-white text-sm font-medium text-black shadow-md">
+        <div className="absolute left-0 mt-1 rounded-md border border-solid border-textGreen bg-white text-sm font-medium text-black shadow-md">
           {options.map((option) => (
             <button
               key={option}
