@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import SearchBar from '@/components/common/SearchBar';
+import GroupMenu from '@/components/organization/GroupMenu';
 import OrgDetail from '@/components/organization/OrgDetail';
 import OrgList from '@/components/organization/OrgList';
 import SortOrder from '@/components/organization/SortOrder';
@@ -9,7 +10,7 @@ import { Icons } from '@/constants/icons';
 const Organization = () => {
   const [selectedSort, setSelectedSort] = useState('가나다순');
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       <div>{Icons.OrgTitle}</div>
       <div className="flex gap-5">
         <div className="flex w-[445px] flex-col gap-[14px]">
@@ -30,6 +31,7 @@ const Organization = () => {
           <OrgDetail />
         </div>
       </div>
+      <GroupMenu />
     </div>
   );
 };

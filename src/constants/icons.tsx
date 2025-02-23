@@ -12,9 +12,9 @@ import MENU_HISTORY_ICON from '@/assets/icons/org/history.svg?react';
 import LINE_LIST_SPACE from '@/assets/icons/org/line-list-space.svg?react';
 import LINE_ICON from '@/assets/icons/org/line.svg?react';
 import ORG_TITLE_ICON from '@/assets/icons/org/organizationPageTitle.svg?react';
+import TREE_ICON from '@/assets/icons/org/tree-icon.svg?react';
 import TRIANGLE_BUTTON_ICON_CLOSE from '@/assets/icons/org/triangleButtonClose.svg?react';
 import TRIANGLE_BUTTON_ICON_OPEN from '@/assets/icons/org/triangleButtonOpen.svg?react';
-import TREE_ICON from '@/assets/icons/tree-icon.svg?react';
 
 export const Icons = {
   Add: <ADD_ICON />,
