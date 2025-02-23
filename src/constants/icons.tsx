@@ -6,8 +6,10 @@ import EDIT_ICON from '@/assets/icons/edit-icon.svg?react';
 import HISTORY_ICON from '@/assets/icons/history-icon.svg?react';
 import LIST_ICON from '@/assets/icons/list-icon.svg?react';
 import MENU_CARD_TRAVEL_ICON from '@/assets/icons/org/card_travel.svg?react';
+import DOT_ICON from '@/assets/icons/org/dot.svg?react';
 import MENU_FILE_EXPORT_ICON from '@/assets/icons/org/file_export.svg?react';
 import MENU_HISTORY_ICON from '@/assets/icons/org/history.svg?react';
+import LINE_LIST_SPACE from '@/assets/icons/org/line-list-space.svg?react';
 import LINE_ICON from '@/assets/icons/org/line.svg?react';
 import ORG_TITLE_ICON from '@/assets/icons/org/organizationPageTitle.svg?react';
 import TRIANGLE_BUTTON_ICON_CLOSE from '@/assets/icons/org/triangleButtonClose.svg?react';
@@ -30,4 +32,6 @@ export const Icons = {
   MenuFileExport: <MENU_FILE_EXPORT_ICON />,
   MenuHistory: <MENU_HISTORY_ICON />,
   Line: <LINE_ICON />,
+  LineListSpace: <LINE_LIST_SPACE />,
+  Dot: <DOT_ICON />,
 };
