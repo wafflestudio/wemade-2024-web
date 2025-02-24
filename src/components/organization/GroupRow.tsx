@@ -10,25 +10,6 @@ const groupRowVariants = cva(
   'whitespace-nowrap w-full flex h-9 items-center py-2.5 pr-2 gap-1 border-b border-solid border-borderGray text-sm font-medium text-black',
   {
     variants: {
-      hasChildren: {
-        true: '',
-        false: 'pl-3.5',
-      },
-      hasUpperOrg: {
-        true: '',
-        false: '',
-      },
-      isEdit: {
-        true: '',
-        false: '',
-      },
-      level: {
-        1: '', // w/o upper org
-        2: 'pl-6', // with upper org
-        3: 'pl-11',
-        4: 'pl-16',
-        5: 'pl-21',
-      },
       state: {
         default: 'bg-white ',
         hover: 'bg-backgroundGray',
@@ -43,11 +24,7 @@ const groupRowVariants = cva(
     },
 
     defaultVariants: {
-      hasChildren: false,
-      hasUpperOrg: false,
-      level: 1,
       state: 'default',
-      isEdit: false,
       unclassified: false,
     },
   }
@@ -55,57 +32,70 @@ const groupRowVariants = cva(
 
 interface GroupRowProps extends VariantProps<typeof groupRowVariants> {
   name: string;
+  level?: number;
+  state?: 'default' | 'hover' | 'hold' | 'unselected' | 'selected';
+  isEdit?: boolean;
+  unclassified?: boolean;
+  children?: GroupRowProps[];
 }
 
 const GroupRow = ({
   name,
-  hasChildren = false,
-  hasUpperOrg = false,
   level = 1,
   state = 'default',
   isEdit = false,
   unclassified = false,
+  children = [],
 }: GroupRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const hasUpperOrg = level > 1;
+  const hasChildren = children.length > 0;
+  const basePadding = 14;
+  const paddingIncrement = 24;
+  const paddingValue =
+    !hasChildren && !hasUpperOrg ? basePadding : (level - 1) * paddingIncrement;
 
   return (
-    <div
-      className={cn(
-        groupRowVariants({
-          hasChildren,
-          hasUpperOrg,
-          level,
-          state,
-          isEdit,
-          unclassified,
-        })
-      )}
-    >
+    <>
       <div
-        className={cn({
-          'pr-1': hasUpperOrg && !hasChildren,
-        })}
+        className={cn(
+          groupRowVariants({
+            state,
+            unclassified,
+          })
+        )}
+        style={{ paddingLeft: `${paddingValue}px` }}
       >
-        {hasUpperOrg && Icons.Line}
+        {hasUpperOrg && <div className="pr-1">{Icons.Line}</div>}
+
+        {hasChildren && (
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className={cn('px-1 transition-transform', {
+              'rotate-180': isExpanded,
+            })}
+          >
+            {isExpanded ? Icons.TriangleButtonOpen : Icons.TriangleButtonClose}
+          </button>
+        )}
+        <span className="flex-1">{name}</span>
+        {isEdit && (
+          <EditBtn
+            onClick={() => {}}
+            text="수정됨"
+          />
+        )}
       </div>
-      {hasChildren && (
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className={cn('px-1 transition-transform', {
-            'rotate-180': isExpanded,
-          })}
-        >
-          {isExpanded ? Icons.TriangleButtonOpen : Icons.TriangleButtonClose}
-        </button>
-      )}
-      <span className="flex-1">{name}</span>
-      {isEdit && (
-        <EditBtn
-          onClick={() => {}}
-          text="수정됨"
-        />
-      )}
-    </div>
+      {isExpanded &&
+        children.map((child, index) => (
+          <GroupRow
+            key={index}
+            {...child}
+            level={level + 1}
+            isEdit={isEdit}
+          />
+        ))}
+    </>
   );
 };
 
