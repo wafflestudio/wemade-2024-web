@@ -6,6 +6,8 @@ import EDIT_ICON from '@/assets/icons/edit-icon.svg?react';
 import HISTORY_ICON from '@/assets/icons/history-icon.svg?react';
 import LIST_ICON from '@/assets/icons/list-icon.svg?react';
 import MENU_CARD_TRAVEL_ICON from '@/assets/icons/org/card_travel.svg?react';
+import CORPORATE_CLOSE_ICON from '@/assets/icons/org/corporate_close.svg?react';
+import CORPORATE_OPEN_ICON from '@/assets/icons/org/corporate_open.svg?react';
 import DOT_ICON from '@/assets/icons/org/dot.svg?react';
 import MENU_FILE_EXPORT_ICON from '@/assets/icons/org/file_export.svg?react';
 import MENU_HISTORY_ICON from '@/assets/icons/org/history.svg?react';
@@ -34,4 +36,6 @@ export const Icons = {
   Line: <LINE_ICON />,
   LineListSpace: <LINE_LIST_SPACE />,
   Dot: <DOT_ICON />,
+  CorporateOpen: <CORPORATE_OPEN_ICON />,
+  CorporateClose: <CORPORATE_CLOSE_ICON />,
 };
