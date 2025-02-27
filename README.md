@@ -16,6 +16,7 @@ dev: http://dev.waffle-wemade.shop/
 git clone git@github.com:wafflestudio/wemade-2024-web.git
 cd wemade-2024-web
 yarn install
+yarn dev 
 ```
 
 ## Convention
