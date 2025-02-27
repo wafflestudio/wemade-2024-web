@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { useToken } from '@/utils/api';
+import { useToken } from '@/hooks/useToken';
 
 const ProtectedRoute = ({ redirectTo }: { redirectTo: string }) => {
   const { accessToken } = useToken();

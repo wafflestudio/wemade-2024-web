@@ -1,13 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
-
+import OrgLayout from '@/components/organization/OrgLayout';
 import AuthLayout from '@/Layout/AuthLayout.tsx';
 import Layout from '@/Layout/Layout.tsx';
-//import Home from '@/pages/Home.tsx';
+import Home from '@/pages/Home.tsx';
 import Landing from '@/pages/Landing.tsx';
 import OAuthCallback from '@/pages/OAuthCallback.tsx';
-import PeopleList from '@/pages/PeopleList';
+import Organization from '@/pages/Organization';
 import SignUp from '@/pages/SignUp.tsx';
-//import Test from '@/pages/Test.tsx';
+import PeopleList from '@/pages/PeopleList';
 import ProtectedRoute from '@/route/ProtectedRoute.tsx';
 
 export const router = createBrowserRouter([
@@ -18,13 +18,8 @@ export const router = createBrowserRouter([
     children: [
       {
         element: <ProtectedRoute redirectTo="/auth/login" />,
-        children: [
-          // { index: true, element: <Home /> },
-          // { path: 'infocard', element: <InfoCard /> },
-        ],
+        children: [{ index: true, element: <Home /> }],
       },
-      /* 퍼블리싱 동안만 개발의 용이성을 위해 외부에 두겠습니다! */
-      { path: 'people', element: <PeopleList /> },
     ],
   },
 
@@ -38,11 +33,17 @@ export const router = createBrowserRouter([
       { path: 'signup', element: <SignUp /> },
     ],
   },
+  {
+    path: '/organization',
+    element: <OrgLayout />,
+    children: [{ index: true, element: <Organization /> }],
+  },
 
   // 404 페이지 처리 (잘못된 경로 접근 시 `Landing`으로 이동)
   {
     path: '*',
-    element: <Landing />,
+    element: <AuthLayout />,
+    children: [{ path: '*', element: <Landing /> }],
   },
 ]);
 

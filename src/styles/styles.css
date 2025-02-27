@@ -29,3 +29,38 @@
 body {
   font-family: 'Pretendard', sans-serif;
 }
+
+.textarea-scrollbar {
+  scrollbar-gutter: stable;
+}
+
+/* Webkit 기반 브라우저 (Chrome, Edge, Safari 등) */
+.textarea-scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+
+.textarea-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* track을 투명하게 */
+}
+
+.textarea-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent; /* 기본 thumb 색상을 투명하게 */
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+/* textarea에 hover 시 thumb에 색상을 부여 */
+.textarea-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Firefox 설정 (완벽한 hover 효과는 어려움) */
+.textarea-scrollbar {
+  scrollbar-width: thin;
+  /* 기본 thumb: 투명, track: 투명 */
+  scrollbar-color: transparent transparent;
+}
+
+.textarea-scrollbar:hover {
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
