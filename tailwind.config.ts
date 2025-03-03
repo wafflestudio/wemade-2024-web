@@ -16,6 +16,7 @@ export default {
         backgroundGray: '#F6F4F1',
         hoverGray: '#EBE6E0',
         backgroundUnselected: '#EBE6E0',
+        backgroundSelected: '#FBF9F8',
         backgroundGreen: '#35C274',
         errorRed: '#EC3737',
       },
