@@ -6,22 +6,23 @@ const useOuterClick = (
   ignoreRefs: RefObject<HTMLElement>[] = []
 ) => {
   useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (!ref.current || ref.current.contains(e.target as Node)) return;
-
+    const handleClick = ({ target }: MouseEvent) => {
       if (
-        ignoreRefs.some((ignoreRef) =>
-          ignoreRef.current?.contains(e.target as Node)
-        )
-      ) {
+        !(target instanceof Node) ||
+        !ref.current ||
+        ref.current.contains(target)
+      )
+        return;
+
+      if (ignoreRefs.some((ignoreRef) => ignoreRef.current?.contains(target))) {
         return;
       }
 
       callback();
     };
 
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
+    document.addEventListener('mouseup', handleClick);
+    return () => document.removeEventListener('mouseup', handleClick);
   }, [ref, callback, ignoreRefs]);
 };
 

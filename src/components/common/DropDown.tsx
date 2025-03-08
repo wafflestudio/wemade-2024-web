@@ -1,16 +1,16 @@
-import { FC, useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 
 import useOuterClick from '@/hooks/useOuterClick';
 
-export interface IDropdownOption {
-  value: string;
+export interface DropdownOption<T extends string> {
+  value: T;
   label: string;
 }
 
-interface IDropdownProps {
-  options: IDropdownOption[];
-  value?: string;
-  onChange?: (value: string) => void;
+interface DropdownProps<T extends string> {
+  options: DropdownOption<T>[];
+  value?: T;
+  onChange?: (value: T) => void;
   bgColor?: string;
   textColor?: string;
   iconColor?: string;
@@ -18,7 +18,8 @@ interface IDropdownProps {
 }
 
 /*아래는 미지정 시 기본값이며 이 컴포넌트 사용하실 때마다 디자인 맞춰서 바꿔주시면 됩니다!*/
-const Dropdown: FC<IDropdownProps> = ({
+
+const Dropdown = <T extends string>({
   options,
   value,
   onChange,
@@ -26,28 +27,18 @@ const Dropdown: FC<IDropdownProps> = ({
   textColor = 'text-black',
   iconColor = 'fill-black',
   placeholder = '전체',
-}) => {
-  const [selectedValue, setSelectedValue] = useState<string>(value || '');
+}: DropdownProps<T>) => {
   const [opened, setOpened] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (value !== undefined) {
-      setSelectedValue(value);
-    }
-  }, [value]);
-
-  const selectedOption = options.find(
-    (option) => option.value === selectedValue
-  );
+  const selectedOption = options.find((option) => option.value === value);
 
   const handleToggle = () => {
     setOpened((prev) => !prev);
   };
 
-  const handleOptionClick = (newValue: string) => {
-    setSelectedValue(newValue);
+  const handleOptionClick = (newValue: T) => {
     onChange?.(newValue);
     setOpened(false);
   };
