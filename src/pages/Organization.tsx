@@ -7,14 +7,22 @@ import OrgDetail from '@/components/organization/OrgDetail';
 import OrgList from '@/components/organization/OrgList';
 import SortOrder from '@/components/organization/SortOrder';
 import { Icons } from '@/constants/icons';
+import { useGetCorporateOptions } from '@/usecases/organization';
 
 const Organization = () => {
   const [selectedSort, setSelectedSort] = useState('가나다순');
+  const { corpOptions, isLoading } = useGetCorporateOptions();
+  const [selectedCorp, setSelectedCorp] = useState<number>(1);
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
         <div>{Icons.OrgTitle}</div>
-        <CorporationSelect />
+        <CorporationSelect
+          corpOptions={corpOptions}
+          selectedCorp={selectedCorp}
+          setSelectedCorp={setSelectedCorp}
+        />
       </div>
       <div className="flex gap-5">
         <div className="flex w-[445px] flex-col gap-[14px]">

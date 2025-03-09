@@ -34,7 +34,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: '/organization',
+    path: '/org',
     element: <OrgLayout />,
     children: [{ index: true, element: <Organization /> }],
   },
