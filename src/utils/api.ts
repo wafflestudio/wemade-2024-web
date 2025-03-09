@@ -4,7 +4,6 @@ import {
   UseQueryOptions,
   UseMutationOptions,
 } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 import { useToken } from '@/hooks/useToken';
 
 export const API_DOMAIN = import.meta.env.VITE_API_DOMAIN;
@@ -15,16 +14,19 @@ type FetchOptions = {
   method: RequestMethod;
   headers?: Record<string, string>;
   body?: any;
+  accessToken?: string | null;
+  clearTokens?: () => void;
 };
 export const fetchData = async <T>({
   endpoint,
   method,
   headers,
   body,
+  accessToken,
+  clearTokens,
 }: FetchOptions) => {
-  const { accessToken, clearTokens } = useToken();
-  const navigate = useNavigate();
   const url = `${API_DOMAIN}${endpoint}`;
+  console.log('url', url);
   const response = await fetch(url, {
     method,
     headers: {
@@ -33,11 +35,9 @@ export const fetchData = async <T>({
     },
     body: body ? JSON.stringify(body) : undefined,
   });
-
   if (!response.ok) {
     if (response.status === 401) {
-      clearTokens();
-      navigate('/auth/login', { replace: true });
+      clearTokens?.();
     }
     const error = await response.json();
     throw new Error(error.message || 'Something went wrong!');
@@ -74,9 +74,11 @@ export const useGetRequest = <T>(
   endpoint: string,
   options?: Omit<UseQueryOptions<T>, 'queryKey'>
 ) => {
+  const { accessToken, clearTokens } = useToken();
   return useQuery<T>({
     queryKey,
-    queryFn: () => fetchData<T>({ endpoint, method: 'GET' }),
+    queryFn: () =>
+      fetchData<T>({ endpoint, method: 'GET', accessToken, clearTokens }),
     ...options,
   });
 };
@@ -98,9 +100,16 @@ export const usePostRequest = <T, Variables>(
   endpoint: string,
   options?: UseMutationOptions<T, Error, Variables>
 ) => {
+  const { accessToken, clearTokens } = useToken();
   return useMutation<T, Error, Variables>({
     mutationFn: (variables: Variables) => {
-      return fetchData<T>({ endpoint, method: 'POST', body: variables });
+      return fetchData<T>({
+        endpoint,
+        method: 'POST',
+        body: variables,
+        accessToken,
+        clearTokens,
+      });
     },
     ...options,
   });
@@ -111,9 +120,17 @@ export const usePutRequest = <T, Variables>(
   endpoint: string,
   options?: UseMutationOptions<T, Error, Variables>
 ) => {
+  const { accessToken, clearTokens } = useToken();
+
   return useMutation<T, Error, Variables>({
     mutationFn: (variables: Variables) => {
-      return fetchData<T>({ endpoint, method: 'PUT', body: variables });
+      return fetchData<T>({
+        endpoint,
+        method: 'PUT',
+        body: variables,
+        accessToken,
+        clearTokens,
+      });
     },
     ...options,
   });
@@ -124,9 +141,17 @@ export const useDeleteRequest = <T, Variables>(
   endpoint: string,
   options?: UseMutationOptions<T, Error, Variables>
 ) => {
+  const { accessToken, clearTokens } = useToken();
+
   return useMutation<T, Error, Variables>({
     mutationFn: (variables: Variables) => {
-      return fetchData<T>({ endpoint, method: 'DELETE', body: variables });
+      return fetchData<T>({
+        endpoint,
+        method: 'DELETE',
+        body: variables,
+        accessToken,
+        clearTokens,
+      });
     },
     ...options,
   });
@@ -137,9 +162,17 @@ export const usePatchRequest = <T, Variables>(
   endpoint: string,
   options?: UseMutationOptions<T, Error, Variables>
 ) => {
+  const { accessToken, clearTokens } = useToken();
+
   return useMutation<T, Error, Variables>({
     mutationFn: (variables: Variables) => {
-      return fetchData<T>({ endpoint, method: 'PATCH', body: variables });
+      return fetchData<T>({
+        endpoint,
+        method: 'PATCH',
+        body: variables,
+        accessToken,
+        clearTokens,
+      });
     },
     ...options,
   });
