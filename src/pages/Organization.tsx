@@ -7,12 +7,19 @@ import OrgDetail from '@/components/organization/OrgDetail';
 import OrgList from '@/components/organization/OrgList';
 import SortOrder from '@/components/organization/SortOrder';
 import { Icons } from '@/constants/icons';
-import { useGetCorporateOptions } from '@/usecases/organization';
+import {
+  useGetCorporateOptions,
+  useGetTeamListInCorp,
+} from '@/usecases/organization';
 
 const Organization = () => {
   const [selectedSort, setSelectedSort] = useState('가나다순');
-  const { corpOptions, isLoading } = useGetCorporateOptions();
+  const { corpOptions, isLoading: isLoadingOptions } = useGetCorporateOptions();
   const [selectedCorp, setSelectedCorp] = useState<number>(1);
+  const { teamList, isLoading, isError } = useGetTeamListInCorp(selectedCorp);
+  if (isLoadingOptions || isLoading) {
+    return <div>로딩중...</div>;
+  }
 
   return (
     <div className="flex flex-col gap-5">
@@ -30,7 +37,7 @@ const Organization = () => {
             placeholder="여기에서 부서명을 검색하세요."
             className="mt-4 text-[15px] font-medium"
           />
-          <OrgList />
+          <OrgList teamList={teamList} />
         </div>
         <div className="RightSide mt-4 flex w-[445px] flex-col gap-[14px]">
           <div className="flex justify-end">

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import EditBtn from './EditBtn';
 
 import { Icons } from '@/constants/icons';
+import { useGetTeamDetail } from '@/usecases/organization';
 import { cn } from '@/utils/cn';
 
 const groupRowVariants = cva(
@@ -31,7 +32,7 @@ const groupRowVariants = cva(
 );
 
 interface GroupRowProps extends VariantProps<typeof groupRowVariants> {
-  name: string;
+  tId: number;
   level?: number;
   state?: 'default' | 'hover' | 'hold' | 'unselected' | 'selected';
   isEdit?: boolean;
@@ -40,18 +41,39 @@ interface GroupRowProps extends VariantProps<typeof groupRowVariants> {
 }
 
 const GroupRow = ({
-  name,
+  tId,
   level = 1,
   state = 'default',
   isEdit = false,
   unclassified = false,
-  children = [],
 }: GroupRowProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const hasUpperOrg = level > 1;
-  const hasChildren = children.length > 0;
   const basePadding = 14;
   const paddingIncrement = 24;
+  const { teamDetail, isLoading, isError, isSuccess } = useGetTeamDetail(tId);
+
+  console.log('teamDetail', teamDetail);
+  if (unclassified) {
+    return (
+      <div
+        className={cn(
+          groupRowVariants({
+            state,
+            unclassified: true,
+          })
+        )}
+        style={{ paddingLeft: `${basePadding}px` }}
+      >
+        <span className="flex-1">미분류 그룹</span>
+      </div>
+    );
+  }
+
+  if (!isSuccess) {
+    return null;
+  }
+  const hasChildren = teamDetail.sub_teams.length > 0;
   const paddingValue =
     !hasChildren && !hasUpperOrg ? basePadding : (level - 1) * paddingIncrement;
 
@@ -78,7 +100,9 @@ const GroupRow = ({
             {isExpanded ? Icons.TriangleButtonOpen : Icons.TriangleButtonClose}
           </button>
         )}
-        <span className="flex-1">{name}</span>
+        <span className="flex-1">
+          {unclassified ? '미분류 그룹' : teamDetail.name}
+        </span>
         {isEdit && (
           <EditBtn
             onClick={() => {}}
@@ -87,10 +111,10 @@ const GroupRow = ({
         )}
       </div>
       {isExpanded &&
-        children.map((child, index) => (
+        teamDetail.sub_teams.map((sub_team) => (
           <GroupRow
-            key={index}
-            {...child}
+            key={sub_team.t_id}
+            tId={sub_team.t_id}
             level={level + 1}
             isEdit={isEdit}
           />
