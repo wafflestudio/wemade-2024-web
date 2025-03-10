@@ -25,12 +25,18 @@ const unclassifiedGroupRowVariants = cva(
 interface UnclassifiedGroupRowProps
   extends VariantProps<typeof unclassifiedGroupRowVariants> {
   isEdit?: boolean;
+  selectedTId: number | null;
+  setSelectedTId: (tId: number) => void;
 }
 const UnclassifiedGroupRow = ({
   isEdit = false,
+  setSelectedTId,
+  selectedTId,
 }: UnclassifiedGroupRowProps) => {
-  const state = 'default';
-  const handleClick = () => {};
+  const state = selectedTId == -1 ? 'selected' : 'default';
+  const handleClick = () => {
+    setSelectedTId(-1);
+  };
 
   return (
     <>

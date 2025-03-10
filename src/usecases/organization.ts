@@ -1,4 +1,9 @@
-import { Corp, CorpDetail, TeamDetail } from '@/entities/organization';
+import {
+  Corp,
+  CorpDetail,
+  TeamDetail,
+  UnclassifiedPerson,
+} from '@/entities/organization';
 import { useGetRequest, useGetRequests } from '@/utils/api';
 
 export const useGetCorporateOptions = () => {
@@ -48,14 +53,6 @@ export const useGetTeamListInCorp = (cId: number) => {
 };
 
 export const useGetTeamDetail = (tId: number) => {
-  if (tId === 0) {
-    return {
-      teamDetail: null,
-      isSuccess: true,
-      isTeamLoading: false,
-      isError: false,
-    };
-  }
   const {
     data: teamDetail,
     isSuccess,
@@ -77,4 +74,12 @@ export const useGetTeamDetail = (tId: number) => {
     isTeamLoading,
     isError,
   };
+};
+
+export const useGetUnclassifiedGroup = () => {
+  const { data, isLoading: isUnclassifiedLoading } = useGetRequest<
+    UnclassifiedPerson[]
+  >(['corporation', 'unclassified'], '/company/unclassified/list');
+
+  return { unclassifiedGroup: data, isUnclassifiedLoading };
 };

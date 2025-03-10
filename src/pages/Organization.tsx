@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import { Loading } from '@/components/common/Loading';
 import SearchBar from '@/components/common/SearchBar';
@@ -13,11 +13,11 @@ import {
   useGetCorporateOptions,
   useGetTeamDetail,
   useGetTeamListInCorp,
+  useGetUnclassifiedGroup,
 } from '@/usecases/organization';
 
 const Organization = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
   const selectedSort = searchParams.get('sort') ?? '가나다순';
 
   const { corpOptions, isLoading: isLoadingOptions } = useGetCorporateOptions();
@@ -25,8 +25,12 @@ const Organization = () => {
   const { teamList, isLoading } = useGetTeamListInCorp(selectedCorp);
   const [selectedTId, setSelectedTId] = useState<number | null>(null);
 
-  const { teamDetail, isTeamLoading } = useGetTeamDetail(selectedTId ?? 1);
-  if (isLoadingOptions || isLoading || isTeamLoading) {
+  const { teamDetail, isTeamLoading } = useGetTeamDetail(
+    selectedTId === null || selectedTId === -1 ? 1 : selectedTId
+  );
+  const { unclassifiedGroup, isUnclassifiedLoading } =
+    useGetUnclassifiedGroup();
+  if (isLoadingOptions || isLoading || isTeamLoading || isUnclassifiedLoading) {
     return <Loading />;
   }
 
@@ -65,7 +69,23 @@ const Organization = () => {
               options={['가나다순', '직급순']}
             />
           </div>
-          {teamDetail && <OrgDetail teamDetail={teamDetail} />}
+          {(selectedTId ?? -1) !== -1 && teamDetail && (
+            <OrgDetail detail={teamDetail} />
+          )}
+          {selectedTId === -1 && unclassifiedGroup && (
+            <OrgDetail
+              detail={{
+                name: '미분류그룹',
+                member_count: unclassifiedGroup.length,
+                members: unclassifiedGroup,
+                corporation: {
+                  name:
+                    corpOptions.find((corp) => corp.value === selectedCorp)
+                      ?.label ?? '',
+                },
+              }}
+            />
+          )}
         </div>
       </div>
       <GroupMenu />

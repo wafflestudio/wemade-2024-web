@@ -33,7 +33,10 @@ const OrgList = ({ teamList, selectedTId, setSelectedTId }: OrgListProps) => {
         </div>
       </div>
       <div className="m-[6px] flex h-9 rounded-sm border border-textGray1 bg-white">
-        <UnclassifiedGroupRow />
+        <UnclassifiedGroupRow
+          selectedTId={selectedTId}
+          setSelectedTId={setSelectedTId}
+        />
       </div>
     </div>
   );

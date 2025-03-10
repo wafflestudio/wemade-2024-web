@@ -48,3 +48,13 @@ export type Role = {
   r_id: number;
   role: string; // 부서장, 팀원
 };
+
+export type UnclassifiedPerson = {
+  p_id: number;
+  name: string;
+  emails: string[];
+  phone_number: string;
+  corporations: number[]; // c_id
+  teams: number[]; // t_id
+  roles: Role[];
+};
