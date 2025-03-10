@@ -15,7 +15,7 @@ const groupRowVariants = cva(
         hover: 'bg-backgroundGray',
         hold: 'bg-[rgba(25,240,120,0.2)]',
         unselected: 'bg-backgroundUnselected',
-        selected: 'text-backgroundGreen',
+        selected: 'text-backgroundGreen bg-backgroundSelected',
       },
       unclassified: {
         true: 'text-textGray2',
