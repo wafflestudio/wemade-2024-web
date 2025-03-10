@@ -28,7 +28,6 @@ export const fetchData = async <T>({
   clearTokens,
 }: FetchOptions) => {
   const url = `${API_DOMAIN}${endpoint}`;
-  console.log('url', url);
   const response = await fetch(url, {
     method,
     headers: {

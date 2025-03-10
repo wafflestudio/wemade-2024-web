@@ -40,25 +40,41 @@ export const useGetTeamListInCorp = (cId: number) => {
       sub_teams: team.data.sub_teams,
     }));
 
-  return { teamList: formattedTeamList, isLoading, isError };
+  return {
+    teamList: formattedTeamList,
+    isLoading,
+    isError,
+  };
 };
 
 export const useGetTeamDetail = (tId: number) => {
+  if (tId === 0) {
+    return {
+      teamDetail: null,
+      isSuccess: true,
+      isTeamLoading: false,
+      isError: false,
+    };
+  }
   const {
     data: teamDetail,
     isSuccess,
-    isLoading,
+    isLoading: isTeamLoading,
     isError,
   } = useGetRequest<TeamDetail>(['team', tId], `/company/team/${tId}`);
 
   if (isSuccess) {
     return {
       teamDetail,
-      isLoading,
-      isError,
       isSuccess,
+      isTeamLoading,
+      isError,
     };
   }
-  console.log('teamDetail', teamDetail);
-  return { teamDetail, isLoading, isError, isSuccess };
+  return {
+    teamDetail,
+    isSuccess,
+    isTeamLoading,
+    isError,
+  };
 };
