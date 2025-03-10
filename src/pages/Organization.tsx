@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Loading } from '@/components/common/Loading';
 import SearchBar from '@/components/common/SearchBar';
@@ -15,7 +16,9 @@ import {
 } from '@/usecases/organization';
 
 const Organization = () => {
-  const [selectedSort, setSelectedSort] = useState('가나다순');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const selectedSort = searchParams.get('sort') ?? '가나다순';
 
   const { corpOptions, isLoading: isLoadingOptions } = useGetCorporateOptions();
   const [selectedCorp, setSelectedCorp] = useState<number>(1);
@@ -27,6 +30,11 @@ const Organization = () => {
     return <Loading />;
   }
 
+  const handleSelectedSort = (newSort: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('sort', newSort);
+    setSearchParams(params, { replace: true });
+  };
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
@@ -53,7 +61,7 @@ const Organization = () => {
           <div className="flex justify-end">
             <SortOrder
               selectedValue={selectedSort}
-              onSelect={setSelectedSort}
+              onSelect={handleSelectedSort}
               options={['가나다순', '직급순']}
             />
           </div>

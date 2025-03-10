@@ -13,11 +13,10 @@ const SortOrder = ({ onSelect, selectedValue, options }: SortOrderProps) => {
     <div className="relative inline-block">
       <button
         className={cn(
-          'flex h-8 w-[100px] items-center justify-center rounded-md border border-solid border-textGreen bg-white px-3 py-1 text-sm font-medium text-black transition-all',
+          'flex h-8 w-[100px] items-center justify-center rounded-md border border-solid border-textGreen bg-white px-3 py-1 text-sm font-medium text-black transition-all hover:bg-backgroundGray',
           isOpen && 'bg-backgroundGray'
         )}
         onClick={() => setIsOpen(!isOpen)}
-        onMouseEnter={() => !isOpen && setIsOpen(true)}
       >
         {selectedValue}
       </button>
