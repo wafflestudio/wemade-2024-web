@@ -14,15 +14,25 @@ import {
   useGetTeamDetail,
   useGetTeamListInCorp,
   useGetUnclassifiedGroup,
+  useSearchTeam,
 } from '@/usecases/organization';
 
 const Organization = () => {
+  const [inputText, setInputText] = useState('');
+  const [searchText, setSearchText] = useState('');
+
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedSort = searchParams.get('sort') ?? '가나다순';
 
   const { corpOptions, isLoading: isLoadingOptions } = useGetCorporateOptions();
   const [selectedCorp, setSelectedCorp] = useState<number>(1);
-  const { teamList, isLoading } = useGetTeamListInCorp(selectedCorp);
+  const { teamList: defaultTeamList, isLoading } =
+    useGetTeamListInCorp(selectedCorp);
+  const { teamList: searchedTeamList, isSearchLoading } = useSearchTeam(
+    searchText,
+    selectedCorp
+  );
+
   const [selectedTId, setSelectedTId] = useState<number | null>(null);
 
   const { teamDetail, isTeamLoading } = useGetTeamDetail(
@@ -30,7 +40,13 @@ const Organization = () => {
   );
   const { unclassifiedGroup, isUnclassifiedLoading } =
     useGetUnclassifiedGroup();
-  if (isLoadingOptions || isLoading || isTeamLoading || isUnclassifiedLoading) {
+  if (
+    isLoadingOptions ||
+    isLoading ||
+    isTeamLoading ||
+    isUnclassifiedLoading ||
+    isSearchLoading
+  ) {
     return <Loading />;
   }
 
@@ -38,6 +54,13 @@ const Organization = () => {
     const params = new URLSearchParams(searchParams);
     params.set('sort', newSort);
     setSearchParams(params, { replace: true });
+  };
+  const teamListToShow = searchText ? searchedTeamList : defaultTeamList;
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setSearchText(inputText.trim());
+    }
   };
   return (
     <div className="flex flex-col gap-5">
@@ -54,9 +77,12 @@ const Organization = () => {
           <SearchBar
             placeholder="여기에서 부서명을 검색하세요."
             className="mt-4 text-[15px] font-medium"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <OrgList
-            teamList={teamList}
+            teamList={teamListToShow}
             selectedTId={selectedTId}
             setSelectedTId={setSelectedTId}
           />

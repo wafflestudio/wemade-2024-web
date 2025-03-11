@@ -11,7 +11,7 @@ type OrgListProps = {
 type team = {
   tId: number;
   name: string;
-  sub_teams: SubTeam[];
+  sub_team_count: number;
 };
 const OrgList = ({ teamList, selectedTId, setSelectedTId }: OrgListProps) => {
   const listBackShadow =
@@ -24,7 +24,7 @@ const OrgList = ({ teamList, selectedTId, setSelectedTId }: OrgListProps) => {
           {teamList.map((team) => (
             <GroupRow
               tId={team.tId}
-              level={team.sub_teams.length > 0 ? 1 : 0}
+              level={team.sub_team_count > 0 ? 1 : 0}
               key={team.tId}
               selectedTId={selectedTId}
               setSelectedTId={setSelectedTId}

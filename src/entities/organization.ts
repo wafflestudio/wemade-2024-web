@@ -58,3 +58,11 @@ export type UnclassifiedPerson = {
   teams: number[]; // t_id
   roles: Role[];
 };
+
+export type SearchTeam = {
+  t_id: number;
+  name: string;
+  corporation: number; // c_id
+  sub_teams: number[];
+  is_active: boolean;
+};

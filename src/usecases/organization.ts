@@ -1,6 +1,7 @@
 import {
   Corp,
   CorpDetail,
+  SearchTeam,
   TeamDetail,
   UnclassifiedPerson,
 } from '@/entities/organization';
@@ -43,6 +44,7 @@ export const useGetTeamListInCorp = (cId: number) => {
       tId: team.data.t_id,
       name: team.data.name,
       sub_teams: team.data.sub_teams,
+      sub_team_count: team.data.sub_teams.length,
     }));
 
   return {
@@ -82,4 +84,24 @@ export const useGetUnclassifiedGroup = () => {
   >(['corporation', 'unclassified'], '/company/unclassified/list');
 
   return { unclassifiedGroup: data, isUnclassifiedLoading };
+};
+
+export const useSearchTeam = (searchText: string, selectedCorp: number) => {
+  const { data, isLoading: isSearchLoading } = useGetRequest<SearchTeam[]>(
+    ['team', 'search', searchText],
+    `/search/team?q=${searchText}`
+  );
+  if (!data) {
+    return { teamList: [], isSearchLoading };
+  }
+  const teamList = data
+    .filter((team) => team.corporation === selectedCorp)
+    .map((team) => ({
+      tId: team.t_id,
+      name: team.name,
+      sub_teams: team.sub_teams,
+      sub_team_count: team.sub_teams.length,
+    }));
+
+  return { teamList, isSearchLoading };
 };
