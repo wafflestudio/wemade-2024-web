@@ -1,8 +1,6 @@
 import GroupRow from './GroupRow';
 import UnclassifiedGroupRow from './UnclassifiedGroupRow';
 
-import { SubTeam } from '@/entities/organization';
-
 type OrgListProps = {
   teamList: team[];
   selectedTId: number | null;
