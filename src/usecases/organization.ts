@@ -89,7 +89,7 @@ export const useGetUnclassifiedGroup = () => {
 export const useSearchTeam = (searchText: string, selectedCorp: number) => {
   const { data, isLoading: isSearchLoading } = useGetRequest<SearchTeam[]>(
     ['team', 'search', searchText],
-    `/search/team?q=${searchText}`
+    `/search/team?${new URLSearchParams({ q: searchText })}`
   );
   if (!data) {
     return { teamList: [], isSearchLoading };
