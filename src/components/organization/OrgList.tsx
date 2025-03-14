@@ -1,26 +1,39 @@
 import GroupRow from './GroupRow';
+import UnclassifiedGroupRow from './UnclassifiedGroupRow';
 
-import mockGroupRows from '@/mocks/mockGroupRows';
-
-const OrgList = () => {
+type OrgListProps = {
+  teamList: team[];
+  selectedTId: number | null;
+  setSelectedTId: (tId: number) => void;
+};
+type team = {
+  tId: number;
+  name: string;
+  sub_team_count: number;
+};
+const OrgList = ({ teamList, selectedTId, setSelectedTId }: OrgListProps) => {
   const listBackShadow =
     'shadow-inner shadow-[0px_0px_5px_0px_rgba(0,0,0,0.05)]';
+
   return (
     <div className={`${listBackShadow} h-[763px] rounded-md bg-backgroundGray`}>
       <div className="m-[6px] flex h-[709px] max-h-[709px] flex-col overflow-x-auto rounded-sm border border-textGray1 bg-white">
         <div className="w-max min-w-full">
-          {mockGroupRows.map((group, index) => (
+          {teamList.map((team) => (
             <GroupRow
-              key={index}
-              {...group}
+              tId={team.tId}
+              level={team.sub_team_count > 0 ? 1 : 0}
+              key={team.tId}
+              selectedTId={selectedTId}
+              setSelectedTId={setSelectedTId}
             />
           ))}
         </div>
       </div>
       <div className="m-[6px] flex h-9 rounded-sm border border-textGray1 bg-white">
-        <GroupRow
-          name="미분류 그룹"
-          unclassified={true}
+        <UnclassifiedGroupRow
+          selectedTId={selectedTId}
+          setSelectedTId={setSelectedTId}
         />
       </div>
     </div>

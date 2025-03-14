@@ -20,7 +20,7 @@ const OAuthCallback = () => {
 
   const { data, isLoading } = useGetRequestWithoutToken<AuthResponse>(
     ['google-code'],
-    `/api/v1/auth/google/callback?code=${code}&profile=${import.meta.env.VITE_PROFILE}`,
+    `/auth/google/callback?code=${code}&profile=${import.meta.env.VITE_PROFILE}`,
     {
       refetchOnWindowFocus: true,
     }
@@ -68,7 +68,7 @@ const OAuthCallback = () => {
     setAccessToken(data.access_token);
     localStorage.setItem('accessToken', data.access_token);
     localStorage.setItem('refreshToken', data.refresh_token);
-    navigate('/auth/signup');
+    navigate('/org');
   }
 
   return null;

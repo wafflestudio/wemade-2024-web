@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
+import { Loading } from '@/components/common/Loading';
 import SearchBar from '@/components/common/SearchBar';
 import CorporationSelect from '@/components/organization/CorporationSelect';
 import GroupMenu from '@/components/organization/GroupMenu';
@@ -7,32 +9,109 @@ import OrgDetail from '@/components/organization/OrgDetail';
 import OrgList from '@/components/organization/OrgList';
 import SortOrder from '@/components/organization/SortOrder';
 import { Icons } from '@/constants/icons';
+import {
+  useGetCorporateOptions,
+  useGetTeamDetail,
+  useGetTeamListInCorp,
+  useGetUnclassifiedGroup,
+  useSearchTeam,
+} from '@/usecases/organization';
 
 const Organization = () => {
-  const [selectedSort, setSelectedSort] = useState('가나다순');
+  const [inputText, setInputText] = useState('');
+  const [searchText, setSearchText] = useState('');
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedSort = searchParams.get('sort') ?? '가나다순';
+
+  const { corpOptions, isLoading: isLoadingOptions } = useGetCorporateOptions();
+  const [selectedCorp, setSelectedCorp] = useState<number>(1);
+  const { teamList: defaultTeamList, isLoading } =
+    useGetTeamListInCorp(selectedCorp);
+  const { teamList: searchedTeamList, isSearchLoading } = useSearchTeam(
+    searchText,
+    selectedCorp
+  );
+
+  const [selectedTId, setSelectedTId] = useState<number | null>(null);
+
+  const { teamDetail, isTeamLoading } = useGetTeamDetail(
+    selectedTId === null || selectedTId === -1 ? 1 : selectedTId
+  );
+  const { unclassifiedGroup, isUnclassifiedLoading } =
+    useGetUnclassifiedGroup();
+  if (
+    isLoadingOptions ||
+    isLoading ||
+    isTeamLoading ||
+    isUnclassifiedLoading ||
+    isSearchLoading
+  ) {
+    return <Loading />;
+  }
+
+  const handleSelectedSort = (newSort: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('sort', newSort);
+    setSearchParams(params, { replace: true });
+  };
+  const teamListToShow = searchText ? searchedTeamList : defaultTeamList;
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setSearchText(inputText.trim());
+    }
+  };
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
         <div>{Icons.OrgTitle}</div>
-        <CorporationSelect />
+        <CorporationSelect
+          corpOptions={corpOptions}
+          selectedCorp={selectedCorp}
+          setSelectedCorp={setSelectedCorp}
+        />
       </div>
       <div className="flex gap-5">
         <div className="flex w-[445px] flex-col gap-[14px]">
           <SearchBar
             placeholder="여기에서 부서명을 검색하세요."
             className="mt-4 text-[15px] font-medium"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
-          <OrgList />
+          <OrgList
+            teamList={teamListToShow}
+            selectedTId={selectedTId}
+            setSelectedTId={setSelectedTId}
+          />
         </div>
         <div className="RightSide mt-4 flex w-[445px] flex-col gap-[14px]">
           <div className="flex justify-end">
             <SortOrder
               selectedValue={selectedSort}
-              onSelect={setSelectedSort}
+              onSelect={handleSelectedSort}
               options={['가나다순', '직급순']}
             />
           </div>
-          <OrgDetail />
+          {(selectedTId ?? -1) !== -1 && teamDetail && (
+            <OrgDetail detail={teamDetail} />
+          )}
+          {selectedTId === -1 && unclassifiedGroup && (
+            <OrgDetail
+              detail={{
+                name: '미분류그룹',
+                member_count: unclassifiedGroup.length,
+                members: unclassifiedGroup,
+                corporation: {
+                  name:
+                    corpOptions.find((corp) => corp.value === selectedCorp)
+                      ?.label ?? '',
+                },
+              }}
+            />
+          )}
         </div>
       </div>
       <GroupMenu />

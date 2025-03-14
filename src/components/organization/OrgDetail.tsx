@@ -1,9 +1,21 @@
 import ListHeader from './ListHeader';
 import ListSpace from './LIstSpace';
 
-import mockListSpaceData from '@/mocks/mockListSpaceData';
-
-const OrgDetail = () => {
+type OrgDetailProps = {
+  detail: Detail;
+};
+type Detail = {
+  name: string;
+  member_count: number;
+  members: Member[];
+  corporation: { name: string };
+};
+type Member = {
+  p_id: number;
+  name: string;
+  roles: { role: string }[];
+};
+const OrgDetail = ({ detail }: OrgDetailProps) => {
   const listBackShadow =
     'shadow-inner shadow-[0px_0px_5px_0px_rgba(0,0,0,0.05)]';
   return (
@@ -11,19 +23,17 @@ const OrgDetail = () => {
       className={`${listBackShadow} flex h-[763px] flex-col rounded-md bg-backgroundGray`}
     >
       <ListHeader
-        title="위메이드"
-        count={78}
+        title={detail.name}
+        count={detail.member_count}
       />
       <div className="m-[6px] flex flex-1 flex-col gap-1.5 overflow-y-auto">
-        {mockListSpaceData.map((item) => (
+        {detail?.members.map((member) => (
           <ListSpace
-            key={item.id}
-            name={item.name}
-            company={item.company}
-            department={item.department}
-            position={item.position}
-            state={item.state as 'default' | 'select'}
-            isHovered={item.isHovered}
+            key={member.p_id}
+            name={member.name}
+            company={detail.corporation.name}
+            department={detail.name}
+            position={member.roles.map((item) => item.role).join(', ')}
           />
         ))}
       </div>

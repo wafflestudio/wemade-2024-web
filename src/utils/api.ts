@@ -3,6 +3,8 @@ import {
   useMutation,
   UseQueryOptions,
   UseMutationOptions,
+  QueryKey,
+  useQueries,
 } from '@tanstack/react-query';
 import { useToken } from '@/hooks/useToken';
 
@@ -26,7 +28,6 @@ export const fetchData = async <T>({
   clearTokens,
 }: FetchOptions) => {
   const url = `${API_DOMAIN}${endpoint}`;
-  console.log('url', url);
   const response = await fetch(url, {
     method,
     headers: {
@@ -70,7 +71,7 @@ const fetchDataWithoutToken = async <T>({
 };
 // GET request
 export const useGetRequest = <T>(
-  queryKey: string[],
+  queryKey: QueryKey,
   endpoint: string,
   options?: Omit<UseQueryOptions<T>, 'queryKey'>
 ) => {
@@ -83,8 +84,27 @@ export const useGetRequest = <T>(
   });
 };
 
+export const useGetRequests = <T>(
+  queries: {
+    queryKey: QueryKey;
+    endpoint: string;
+    options?: Omit<UseQueryOptions<T>, 'queryKey'>;
+  }[]
+) => {
+  const { accessToken, clearTokens } = useToken();
+  const results = useQueries({
+    queries: queries.map(({ queryKey, endpoint, options }) => ({
+      queryKey,
+      queryFn: () =>
+        fetchData<T>({ endpoint, method: 'GET', accessToken, clearTokens }),
+      ...options,
+    })),
+  });
+  return results;
+};
+
 export const useGetRequestWithoutToken = <T>(
-  queryKey: string[],
+  queryKey: QueryKey,
   endpoint: string,
   options?: Omit<UseQueryOptions<T>, 'queryKey'>
 ) => {

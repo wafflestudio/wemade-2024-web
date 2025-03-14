@@ -1,13 +1,13 @@
-import { useRef, useState } from 'react';
+import { Key, useRef, useState } from 'react';
 
 import useOuterClick from '@/hooks/useOuterClick';
 
-export interface DropdownOption<T extends string> {
+export interface DropdownOption<T> {
   value: T;
   label: string;
 }
 
-interface DropdownProps<T extends string> {
+interface DropdownProps<T> {
   options: DropdownOption<T>[];
   value?: T;
   onChange?: (value: T) => void;
@@ -19,7 +19,7 @@ interface DropdownProps<T extends string> {
 
 /*아래는 미지정 시 기본값이며 이 컴포넌트 사용하실 때마다 디자인 맞춰서 바꿔주시면 됩니다!*/
 
-const Dropdown = <T extends string>({
+const Dropdown = <T extends Key>({
   options,
   value,
   onChange,
