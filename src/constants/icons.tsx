@@ -4,6 +4,7 @@ import CROP_ICON from '@/assets/icons/crop-icon.svg?react';
 import DELETE_ICON from '@/assets/icons/delete-icon.svg?react';
 import EDIT_ICON from '@/assets/icons/edit-icon.svg?react';
 import HISTORY_ICON from '@/assets/icons/history-icon.svg?react';
+import HR_TITLE from '@/assets/icons/hrTitle.svg?react';
 import LIST_ICON from '@/assets/icons/list-icon.svg?react';
 import MENU_CARD_TRAVEL_ICON from '@/assets/icons/org/card_travel.svg?react';
 import CORPORATE_CLOSE_ICON from '@/assets/icons/org/corporate_close.svg?react';
@@ -38,4 +39,5 @@ export const Icons = {
   Dot: <DOT_ICON />,
   CorporateOpen: <CORPORATE_OPEN_ICON />,
   CorporateClose: <CORPORATE_CLOSE_ICON />,
+  HRTitle: <HR_TITLE />,
 };
