@@ -7,7 +7,7 @@ import { Icons } from '@/constants/icons';
 import { useGetTeamDetail } from '@/usecases/organization';
 import { cn } from '@/utils/cn';
 
-const groupRowVariants = cva(
+const groupRowClassName = cva(
   'whitespace-nowrap w-full flex h-9 items-center py-2.5 pr-2 gap-1 border-b border-solid border-borderGray text-sm font-medium text-black hover:bg-backgroundGray transition-all',
   {
     variants: {
@@ -25,7 +25,7 @@ const groupRowVariants = cva(
   }
 );
 
-interface GroupRowProps extends VariantProps<typeof groupRowVariants> {
+interface GroupRowProps extends VariantProps<typeof groupRowClassName> {
   tId: number;
   level?: number;
   isEdit?: boolean;
@@ -64,7 +64,7 @@ const GroupRow = ({
     <>
       <div
         className={cn(
-          groupRowVariants({
+          groupRowClassName({
             state,
           })
         )}
