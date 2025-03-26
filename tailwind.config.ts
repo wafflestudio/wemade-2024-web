@@ -6,6 +6,25 @@ export default {
       fontFamily: {
         sans: ['Pretendard', 'sans-serif'],
       },
+      fontSize: {
+        40: '40px',
+        30: '30px',
+        26: '26px',
+        22: '22px',
+        18: '18px',
+        16: '16px',
+        15: '15px',
+        14: '14px',
+        13: '13px',
+        12: '12px',
+        11: '11px',
+      },
+      fontWeight: {
+        bold: '700',
+        semibold: '600',
+        medium: '500',
+        regular: '400',
+      },
       colors: {
         pointColor: '#19F078',
         lightGreen: '#D1FCE4',
