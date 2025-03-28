@@ -15,12 +15,13 @@ type AuthResponse = {
 const OAuthCallback = () => {
   const { setAccessToken } = useToken();
   const [searchParams] = useSearchParams();
+
   const navigate = useNavigate();
-  const code = searchParams.get('code');
+  const code = searchParams.get('code') || '';
 
   const { data, isLoading } = useGetRequestWithoutToken<AuthResponse>(
     ['google-code'],
-    `/auth/google/callback?code=${code}&profile=${import.meta.env.VITE_PROFILE}`,
+    `/auth/google/callback?${new URLSearchParams({ code: code })}&profile=${import.meta.env.VITE_PROFILE}`,
     {
       refetchOnWindowFocus: true,
     }
