@@ -5,6 +5,7 @@ import AuthLayout from '@/Layout/AuthLayout.tsx';
 import Layout from '@/Layout/Layout.tsx';
 import Home from '@/pages/Home.tsx';
 import Landing from '@/pages/Landing.tsx';
+import { ManageHR } from '@/pages/ManageHR';
 import OAuthCallback from '@/pages/OAuthCallback.tsx';
 import Organization from '@/pages/Organization';
 import SignUp from '@/pages/SignUp.tsx';
@@ -18,7 +19,10 @@ export const router = createBrowserRouter([
     children: [
       {
         element: <ProtectedRoute redirectTo="/auth/login" />,
-        children: [{ index: true, element: <Home /> }],
+        children: [
+          { index: true, element: <Home /> },
+          { path: 'manage-hr', element: <ManageHR /> },
+        ],
       },
     ],
   },
